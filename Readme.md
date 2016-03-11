@@ -68,6 +68,7 @@ Also see [EEA Jenkins master-slave orchestration](https://github.com/eea/eea.doc
 * `JENKINS_NO_RETRY_AFTER_CONNECTED` Do not retry if a successful connection gets closed.
 * `JENKINS_AUTO_DISCOVERY_ADDRESS` Use this address for udp-based auto-discovery (default 255.255.255.255)
 * `JENKINS_DISABLE_SSL_VERIFICATION` Disables SSL verification in the HttpClient.
+* `JENKINS_OPTS` You can provide multiple parameters via this environment like: `-e JENKINS_OPTS="-labels code-analysis -mode exclusive"`
 
 ## Extend
 
