@@ -69,6 +69,26 @@ Also see [EEA Jenkins master-slave orchestration](https://github.com/eea/eea.doc
 * `JENKINS_AUTO_DISCOVERY_ADDRESS` Use this address for udp-based auto-discovery (default 255.255.255.255)
 * `JENKINS_DISABLE_SSL_VERIFICATION` Disables SSL verification in the HttpClient.
 
+## Extend
+
+Even if this image has some common system libraries pre-installed at some point
+your projects may have system dependencies that are not installed on this image.
+Thus, you'll have to build your own custom Jenkins slave Docker image
+based on this one by adding a `Dockerfile` and then run:
+
+    $ docker build -t jenkins-slave-custom .
+
+### Dockerfile
+
+    FROM eeacms/jenkins-slave
+
+    USER root
+    RUN apt-get update \
+     && apt-get install -y --no-install-recommends \
+        foo \
+        bar \
+     && rm -rf /var/lib/apt/lists/*
+    USER jenkins
 
 ## Troubleshooting
 
