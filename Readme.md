@@ -46,7 +46,7 @@ or via environment variables:
 
 See `--help` for more options:
 
-    $ docker run eeacms/jenkins-slave --help
+    $ docker run --rm eeacms/jenkins-slave --help
 
 Also see [EEA Jenkins master-slave orchestration](https://github.com/eea/eea.docker.jenkins) for a complete guide on running a Jenkins master-slave stack.
 
