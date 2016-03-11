@@ -2,6 +2,10 @@
 
 PARAMS=""
 
+if [ ! -z "$JENKINS_HOME" ]; then
+  JENKINS_HOME='/var/jenkins_home'
+fi
+
 # The Jenkins username for authentication
 if [ ! -z "$JENKINS_USER" ]; then
   PARAMS="$PARAMS -username $JENKINS_USER"
@@ -85,12 +89,17 @@ if [ ! -z "$JENKINS_DISABLE_SSL_VERIFICATION" ]; then
   PARAMS="$PARAMS -disableSslVerification"
 fi
 
+# Jenkins options
+if [ ! -z "$JENKINS_OPTS" ]; then
+  PARAMS="$PARAMS $JENKINS_OPTS"
+fi
+
 if [ "$1" = "java" ]; then
-  exec "$@" $PARAMS
+  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot ${JENKINS_HOME}/worker/ $PARAMS
 fi
 
 if [[ "$1" == "-"* ]]; then
-  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot ${JENKINS_HOME}/worker/ "$@" $PARAMS
+  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot ${JENKINS_HOME}/worker/ $PARAMS "$@"
 fi
 
 exec "$@"
