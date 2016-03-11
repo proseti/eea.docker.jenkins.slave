@@ -95,11 +95,11 @@ if [ ! -z "$JENKINS_OPTS" ]; then
 fi
 
 if [ "$1" = "java" ]; then
-  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot ${JENKINS_HOME}/worker/ $PARAMS
+  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot $JENKINS_HOME/worker/ $PARAMS
 fi
 
 if [[ "$1" == "-"* ]]; then
-  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot ${JENKINS_HOME}/worker/ $PARAMS "$@"
+  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot $JENKINS_HOME/worker/ $PARAMS "$@"
 fi
 
 exec "$@"
