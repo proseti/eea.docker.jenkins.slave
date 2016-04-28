@@ -6,12 +6,13 @@ ENV MD5 15c1f0937b9b8dd3ceca8f2418801b54
 RUN mkdir -p /var/jenkins_home \
  && useradd -d /var/jenkins_home/worker -u 1000 -m -s /bin/bash jenkins \
  && curl -o /bin/swarm-client.jar -SL http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/2.0/swarm-client-2.0-jar-with-dependencies.jar \
- && echo "$MD5  /bin/swarm-client.jar" | md5sum -c -
+ && echo "$MD5  /bin/swarm-client.jar" | md5sum -c - \
+ && apt-get update \
+ && apt-get install --no-install-recommends bzip2 \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY docker-entrypoint.sh /
 WORKDIR /var/jenkins_home/worker
-
-RUN apt-get install bzip2
 
 USER jenkins
 ENTRYPOINT ["/docker-entrypoint.sh"]
