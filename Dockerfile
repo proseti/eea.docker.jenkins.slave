@@ -11,6 +11,8 @@ RUN mkdir -p /var/jenkins_home \
 COPY docker-entrypoint.sh /
 WORKDIR /var/jenkins_home/worker
 
+RUN apt-get install bzip2
+
 USER jenkins
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["java", "-Xmx2048m", "-jar", "/bin/swarm-client.jar", "-fsroot", "/var/jenkins_home/worker/"]

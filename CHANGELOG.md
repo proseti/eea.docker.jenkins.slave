@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1 (2016-04-28)
+
+- install bzip2 
+  [lucas - refs #70498 EEA]
 
 ## 2.0 (2016-03-10)
 
