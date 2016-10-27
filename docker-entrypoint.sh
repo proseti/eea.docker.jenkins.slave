@@ -90,6 +90,14 @@ if [ ! -z "$JENKINS_OPTS" ]; then
   PARAMS="$PARAMS $JENKINS_OPTS"
 fi
 
+if [ ! -e /var/jenkins_home/worker/.ssh/id_rsa.pub ]; then
+  ssh-keygen -q -N "" -f /var/jenkins_home/worker/.ssh/id_rsa
+  echo "Jenkins Slave SSH public key is:"
+  echo "================================================================================"
+  echo "`cat /var/jenkins_home/worker/.ssh/id_rsa.pub`"
+  echo "================================================================================"
+fi
+
 if [ "$1" = "java" ]; then
   exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS
 fi
