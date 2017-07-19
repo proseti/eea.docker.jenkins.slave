@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 PARAMS=""
 
 # The Jenkins username for authentication
@@ -85,13 +86,24 @@ if [ ! -z "$JENKINS_DISABLE_SSL_VERIFICATION" ]; then
   PARAMS="$PARAMS -disableSslVerification"
 fi
 
+# Disables SSL verification in the HttpClient.
+if [ ! -z "$JENKINS_SSL_FINGERPRINTS" ]; then
+  PARAMS="$PARAMS -sslFingerprints $JENKINS_SSL_FINGERPRINTS"
+else
+  PARAMS="$PARAMS -sslFingerprints ''"
+fi
+
 # Jenkins options
 if [ ! -z "$JENKINS_OPTS" ]; then
   PARAMS="$PARAMS $JENKINS_OPTS"
 fi
 
+
+echo "Fixing permissions"
+chown -v jenkins:jenkins /var/jenkins_home/worker/
+
 if [ ! -e /var/jenkins_home/worker/.ssh/id_rsa.pub ]; then
-  ssh-keygen -q -N "" -f /var/jenkins_home/worker/.ssh/id_rsa
+  gosu jenkins ssh-keygen -q -N "" -f /var/jenkins_home/worker/.ssh/id_rsa
   echo "Jenkins Slave SSH public key is:"
   echo "================================================================================"
   echo "`cat /var/jenkins_home/worker/.ssh/id_rsa.pub`"
@@ -99,11 +111,11 @@ if [ ! -e /var/jenkins_home/worker/.ssh/id_rsa.pub ]; then
 fi
 
 if [ "$1" = "java" ]; then
-  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS
+  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS
 fi
 
 if [[ "$1" == "-"* ]]; then
-  exec java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS "$@"
+  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS "$@"
 fi
 
 exec "$@"
