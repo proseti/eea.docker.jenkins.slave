@@ -1,7 +1,10 @@
 FROM java:openjdk-8
 
+ENV GOSU_VERSION=1.10 \
+    SWARM_VERSION=3.4 \
+    MD5=63b3733b875ab4615e91e911a7d5fd45
+
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.10
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates wget bzip2 \
  && rm -rf /var/lib/apt/lists/* \
@@ -14,15 +17,16 @@ RUN apt-get update \
  && chmod +x /usr/local/bin/gosu \
  && gosu nobody true
 
-# grap swarm-client.jar
-ENV MD5 63b3733b875ab4615e91e911a7d5fd45
+# grab swarm-client.jar
 RUN mkdir -p /var/jenkins_home \
  && useradd -d /var/jenkins_home/worker -u 1000 -m -s /bin/bash jenkins \
- && curl -o /bin/swarm-client.jar -SL https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/3.4/swarm-client-3.4.jar \
+ && curl -o /bin/swarm-client.jar -SL https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/$SWARM_VERSION/swarm-client-$SWARM_VERSION.jar \
  && echo "$MD5  /bin/swarm-client.jar" | md5sum -c -
 
 COPY docker-entrypoint.sh /
+
+VOLUME /var/jenkins_home/worker
 WORKDIR /var/jenkins_home/worker
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["java"]
+CMD ["java", "-jar", "/bin/swarm-client.jar"]

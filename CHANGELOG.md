@@ -1,8 +1,13 @@
 # Changelog
 
+## 3.4 (2017-07-20)
+
+- Upgrade to openjdk-8 and swarm-client 3.4
+  [avoinea - refs #80441]
+
 ## 2.1 (2016-04-28)
 
-- install bzip2 
+- install bzip2
   [lucas - refs #70498 EEA]
 
 ## 2.0 (2016-03-10)
