@@ -57,6 +57,7 @@ Also see [EEA Jenkins master-slave orchestration](https://github.com/eea/eea.doc
 
 * `JENKINS_USER` jenkins user to be used to connect slaves to Jenkins master. Make sure that this user has the proper rights to connect slaves and run jenkins jobs.
 * `JENKINS_PASS` jenkins user password
+* `JENKINS_PASS_ENV` jenkins user password; use this option if your password contains illegal characters
 * `JAVA_OPTS` You might need to customize the JVM running Jenkins slave, typically to pass system properties or tweak heap memory settings. Use JAVA_OPTS environment variable for this purpose.
 * `JENKINS_NAME` Name of the slave
 * `JENKINS_DESCRIPTION` Description to be put on the slave
