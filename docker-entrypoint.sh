@@ -13,6 +13,11 @@ if [ ! -z "$JENKINS_PASS" ]; then
   PARAMS="$PARAMS -password $JENKINS_PASS"
 fi
 
+# The Jenkins user password environment variable;
+if [ ! -z "$JENKINS_PASS_ENV" ]; then
+  PARAMS="$PARAMS -passwordEnvVariable JENKINS_PASS_ENV"
+fi
+
 # Name of the slave
 if [ ! -z "$JENKINS_NAME" ]; then
   IP=`python -c "import socket; print(socket.gethostbyname(socket.gethostname()))"`
