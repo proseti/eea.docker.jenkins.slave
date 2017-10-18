@@ -2,11 +2,14 @@ FROM java:openjdk-8
 
 ENV GOSU_VERSION=1.10 \
     SWARM_VERSION=3.4 \
-    MD5=63b3733b875ab4615e91e911a7d5fd45
+    MD5=63b3733b875ab4615e91e911a7d5fd45 \
+    PHANTOMJS_VERSION=phantomjs-2.1.1-linux-x86_64 \
+    MD5PHANTOMJS=1c947d57fce2f21ce0b43fe2ed7cd361  \
+    CASPERJS_VERSION=1.1.4-1
 
 # grab gosu for easy step-down from root
 RUN apt-get update \
- && apt-get install -y --no-install-recommends ca-certificates wget bzip2 \
+ && apt-get install -y --no-install-recommends ca-certificates wget bzip2 python \
  && rm -rf /var/lib/apt/lists/* \
  && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
@@ -16,6 +19,16 @@ RUN apt-get update \
  && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu \
  && gosu nobody true
+
+RUN wget --no-check-certificate https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOMJS_VERSION.tar.bz2 \
+ && echo "$MD5PHANTOMJS  ${PHANTOMJS_VERSION}.tar.bz2" | md5sum -c - \
+ && tar xvf ${PHANTOMJS_VERSION}.tar.bz2 \
+ && mv $PHANTOMJS_VERSION/bin/phantomjs /usr/local/bin/ \
+ && rm -rf phantom*
+
+RUN git clone  -b ${CASPERJS_VERSION}  git://github.com/casperjs/casperjs.git \
+ && mv casperjs /opt/ \
+ && ln -sf /opt/casperjs/bin/casperjs /usr/local/bin/casperjs
 
 # grab swarm-client.jar
 RUN mkdir -p /var/jenkins_home \
