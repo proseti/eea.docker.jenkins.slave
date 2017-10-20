@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6 (2017-10-20)
+
+- Upgrade to swarm-client 3.6, added CasperJs 1.1.4-1 and PhantomJs 2.1.1
+  [valentinab25 - refs #89136]
+
 ## 3.4 (2017-07-20)
 
 - Upgrade to openjdk-8 and swarm-client 3.4
