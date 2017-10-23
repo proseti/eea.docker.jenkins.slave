@@ -10,8 +10,8 @@ This image is generic, thus you can obviously re-use it within your non-related 
 ## Supported tags and respective Dockerfile links
 
 - [`:latest`  (*Dockerfile*)](https://github.com/eea/eea.docker.jenkins.slave/blob/master/Dockerfile)
-- [`:3.4` (*Dockerfile*)](https://github.com/eea/eea.docker.jenkins.slave/blob/3.4/Dockerfile)
 - [`:3.6` (*Dockerfile*)](https://github.com/eea/eea.docker.jenkins.slave/blob/3.6/Dockerfile)
+- [`:3.4` (*Dockerfile*)](https://github.com/eea/eea.docker.jenkins.slave/blob/3.4/Dockerfile)
 
 See [older versions](https://github.com/eea/eea.docker.jenkins.slave/releases)
 
