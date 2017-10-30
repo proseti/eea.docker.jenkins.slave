@@ -1,5 +1,11 @@
 # Changelog
 
+
+## 3.6.1 (2017-10-30)
+
+- Updated jenkins slave name 
+  [valentinab25 regarding #3]
+
 ## 3.6 (2017-10-20)
 
 - Upgrade to swarm-client 3.6, added CasperJs 1.1.4-1 and PhantomJs 2.1.1
