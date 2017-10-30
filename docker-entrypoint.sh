@@ -21,7 +21,7 @@ fi
 # Name of the slave
 if [ ! -z "$JENKINS_NAME" ]; then
   IP=`python -c "import socket; print(socket.gethostbyname(socket.gethostname()))"`
-  PARAMS="$PARAMS -name $JENKINS_NAME@$IP"
+  PARAMS="$PARAMS -name $JENKINS_NAME-$IP"
 fi
 
 # Description to be put on the slave
