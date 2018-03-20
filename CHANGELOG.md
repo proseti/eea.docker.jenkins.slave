@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 3.9 (2018-03-20)
+
+- Upgrade to swarm-client 3.9
+- Upgrade to  CasperJs 1.1.4-2
+
 ## 3.6.1 (2017-10-30)
 
 - Updated jenkins slave name 

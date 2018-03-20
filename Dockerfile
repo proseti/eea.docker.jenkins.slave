@@ -1,11 +1,11 @@
 FROM java:openjdk-8
 
 ENV GOSU_VERSION=1.10 \
-    SWARM_VERSION=3.6 \
-    MD5=d0047f360a1f17a4da3d9af222d4630a \
+    SWARM_VERSION=3.9 \
+    MD5=823afa2f38ebc77bed4665676f88b08d \
     PHANTOMJS_VERSION=phantomjs-2.1.1-linux-x86_64 \
     MD5PHANTOMJS=1c947d57fce2f21ce0b43fe2ed7cd361  \
-    CASPERJS_VERSION=1.1.4-1
+    CASPERJS_VERSION=1.1.4-2
 
 # grab gosu for easy step-down from root
 RUN apt-get update \
@@ -14,7 +14,7 @@ RUN apt-get update \
  && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
  && export GNUPGHOME="$(mktemp -d)" \
- && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+ && gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
  && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
  && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu \
