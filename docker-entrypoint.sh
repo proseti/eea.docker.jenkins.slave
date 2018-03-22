@@ -36,9 +36,7 @@ fi
 
 # Whitespace-separated list of labels to be assigned
 # for this slave. Multiple options are allowed.
-if [ ! -z "$JENKINS_LABELS" ]; then
-  PARAMS="$PARAMS -labels $JENKINS_LABELS"
-fi
+# JENKINS_LABELS
 
 # Number of retries before giving up. Unlimited if not specified.
 if [ ! -z "$JENKINS_RETRY" ]; then
@@ -116,11 +114,11 @@ if [ ! -e /var/jenkins_home/worker/.ssh/id_rsa.pub ]; then
 fi
 
 if [ "$1" = "java" ]; then
-  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS
+  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ -labels "$JENKINS_LABELS" $PARAMS
 fi
 
 if [[ "$1" == "-"* ]]; then
-  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ $PARAMS "$@"
+  exec gosu jenkins java $JAVA_OPTS -jar /bin/swarm-client.jar -fsroot /var/jenkins_home/worker/ -labels "$JENKINS_LABELS" $PARAMS "$@"
 fi
 
 exec "$@"
