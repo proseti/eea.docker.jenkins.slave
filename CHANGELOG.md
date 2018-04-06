@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 3.12 (2018-04-06)
+
+- Upgrade to swarm-client 3.12
+
+
 ## 3.9 (2018-03-20)
 
 - Upgrade to swarm-client 3.9
